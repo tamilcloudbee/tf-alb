@@ -12,7 +12,7 @@ resource "aws_subnet" "public_subnet_1" {
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
   tags = {
-    Name = "${var.resource_prefix}public_subnet_1_${var.env_name}_us-east-1"
+    Name = "${var.resource_prefix}-public-subnet-1-${var.env_name}-us-east-1"
   }
 }
 
@@ -23,7 +23,7 @@ resource "aws_subnet" "public_subnet_2" {
   availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
   tags = {
-    Name = "${var.resource_prefix}public_subnet_2_${var.env_name}_us-east-1"  }
+    Name = "${var.resource_prefix}-public-subnet-2-${var.env_name}-us-east-1"  }
 }
 
 # Private Subnet 1 (Using a custom route table, but no Internet Gateway route)
@@ -32,7 +32,7 @@ resource "aws_subnet" "private_subnet_1" {
   cidr_block        = var.private_cidr_1
   availability_zone = "us-east-1a"
   tags = {
-    Name = "${var.resource_prefix}private_subnet_1_${var.env_name}_us-east-1"
+    Name = "${var.resource_prefix}-private-subnet-1-${var.env_name}-us-east-1"
   }
 }
 
@@ -42,7 +42,7 @@ resource "aws_subnet" "private_subnet_2" {
   cidr_block        = var.private_cidr_2
   availability_zone = "us-east-1b"
   tags = {
-    Name = "${var.resource_prefix}private_subnet_2_${var.env_name}_us-east-1"
+    Name = "${var.resource_prefix}-private-subnet-2-${var.env_name}-us-east-1"
   }
 }
 
@@ -50,7 +50,7 @@ resource "aws_subnet" "private_subnet_2" {
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "${var.resource_prefix}vpc_${var.env_name}_igw"
+    Name = "${var.resource_prefix}-vpc-${var.env_name}-igw"
   }
 }
 
@@ -94,7 +94,7 @@ resource "null_resource" "tag_main_route_table" {
 resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "${var.resource_prefix}vpc_${var.env_name}_public_rt"
+    Name = "${var.resource_prefix}-vpc-${var.env_name}-public-rt"
   }
 }
 
@@ -113,6 +113,6 @@ resource "aws_route_table_association" "public_association_2" {
 resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "${var.resource_prefix}vpc_${var.env_name}_private_rt"
+    Name = "${var.resource_prefix}-vpc-${var.env_name}-private-rt"
   }
 }

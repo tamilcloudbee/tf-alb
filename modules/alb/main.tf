@@ -1,55 +1,5 @@
+
 /*
-
-resource "aws_security_group" "alb_sg" {
-  name        = "${var.resource_prefix}-alb-sg"
-  description = "Security group for the ALB"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow incoming HTTP traffic
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow incoming HTTPS traffic (if using HTTPS)
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"  # Allow all outbound traffic
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "${var.resource_prefix}-alb-sg"
-  }
-}
-
-
-resource "aws_lb" "alb" {
-  name               = "${var.resource_prefix}${var.load_balancer_type}-alb"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]  # Attach ALB Security Group
-  subnets            = var.public_subnet_ids
-
-  enable_deletion_protection = false
-
-  tags = {
-    Environment = var.env_name
-    Name        = "${var.resource_prefix}${var.load_balancer_type}-alb"
-  }
-}
-
-
-==================
-*/
 resource "aws_security_group" "alb_sg" {
   name        = "${var.resource_prefix}-alb-sg"
   description = "Security group for the ALB"
@@ -80,12 +30,12 @@ resource "aws_security_group" "alb_sg" {
     Name = "${var.resource_prefix}-alb-sg"
   }
 }
-
+*/
 resource "aws_lb" "alb" {
   name               = "${var.resource_prefix}${var.load_balancer_type}-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]  # Attach ALB Security Group
+  security_groups    = var.security_group_ids #tach ALB Security Group
   subnets            = var.public_subnet_ids
 
   enable_deletion_protection = false

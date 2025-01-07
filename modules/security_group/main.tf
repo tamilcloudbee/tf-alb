@@ -26,7 +26,7 @@ resource "aws_security_group" "ec2_sg" {
 
 
 resource "aws_security_group" "alb_sg" {
-  name        = "${var.resource_prefix}alb_sg"
+  name        = "${var.resource_prefix}-alb-sg"
   description = "Allow traffic from ALB to EC2 instances"
   vpc_id      = var.vpc_id
 
@@ -45,6 +45,6 @@ resource "aws_security_group" "alb_sg" {
   }
 
   tags = {
-    Name = "${var.resource_prefix}alb_sg"
+    Name = "${var.resource_prefix}-alb-sg"
   }
 }

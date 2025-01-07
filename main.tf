@@ -14,25 +14,7 @@ module "vpc_a" {
 
 }
 
-module "alb" {
-  source               = "./modules/alb"
-  resource_prefix      = var.resource_prefix
-  load_balancer_type   = "application"
-  vpc_id               = module.vpc_a.vpc_id
-  public_subnet_ids    = [module.vpc_a.public_subnet_1_id, module.vpc_a.public_subnet_2_id]
-  security_group_ids   = [module.sg_a.security_group_id]
-  env_name             = "dev"
-  main_instance_ids    = {
-    "main_instance_1" = module.ec2_a.public_instance_id
-    "main_instance_2" = module.ec2_b.public_instance_id
-  }
-  admin_instance_ids   = {
-    "admin_instance_1" = module.ec2_a.public_instance_id
-  }
-  register_instance_ids = {
-    "register_instance_1" = module.ec2_b.public_instance_id
-  }
-}
+
 
 
 module "sg_a" {
@@ -62,4 +44,24 @@ module "ec2_b" {
   env_name            = "dev_a"
   security_group_id   = module.sg_a.security_group_id
   resource_prefix     = var.resource_prefix
+}
+
+module "alb" {
+  source               = "./modules/alb"
+  resource_prefix      = var.resource_prefix
+  load_balancer_type   = "application"
+  vpc_id               = module.vpc_a.vpc_id
+  public_subnet_ids    = [module.vpc_a.public_subnet_1_id, module.vpc_a.public_subnet_2_id]
+  security_group_ids   = [module.sg_a.alb_security_group_id]
+  env_name             = "dev"
+  main_instance_ids    = {
+    "main_instance_1" = module.ec2_a.public_instance_id
+    "main_instance_2" = module.ec2_b.public_instance_id
+  }
+  admin_instance_ids   = {
+    "admin_instance_1" = module.ec2_a.public_instance_id
+  }
+  register_instance_ids = {
+    "register_instance_1" = module.ec2_b.public_instance_id
+  }
 }
