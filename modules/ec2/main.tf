@@ -1,11 +1,15 @@
+
+
 # Data block to fetch the latest Ubuntu AMI ID in the region
+/*
+
 data "aws_ami" "latest_ubuntu" {
   most_recent = true
   owners      = ["099720109477"]  # Ubuntu official owner ID
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-*arm*"]
   }
 
   filter {
@@ -13,6 +17,46 @@ data "aws_ami" "latest_ubuntu" {
     values = ["hvm"]
   }
 }
+
+
+
+data "aws_ami" "latest_ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"]  # Ubuntu official owner ID
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-*arm64*"]  # Match ARM-based Ubuntu AMIs
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+*/
+
+data "aws_ami" "latest_ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"]  # Ubuntu official owner ID
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-*"]  # Updated to include all Ubuntu images
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]  # Use x86_64 architecture (compatible with t2.micro)
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
+
 
 # EC2 Instance in the Public Subnet
 resource "aws_instance" "public_instance" {

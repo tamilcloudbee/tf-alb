@@ -1,36 +1,4 @@
 
-/*
-resource "aws_security_group" "alb_sg" {
-  name        = "${var.resource_prefix}-alb-sg"
-  description = "Security group for the ALB"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow incoming HTTP traffic
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow incoming HTTPS traffic
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"  # Allow all outbound traffic
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "${var.resource_prefix}-alb-sg"
-  }
-}
-*/
 resource "aws_lb" "alb" {
   name               = "${var.resource_prefix}${var.load_balancer_type}-alb"
   internal           = false
@@ -54,8 +22,8 @@ resource "aws_lb_target_group" "admin" {
   vpc_id   = var.vpc_id
 
   health_check {
-    interval            = 30
-    path                = "/admin/health"  # Custom health check path for admin
+    interval            = 6
+    path                = "/admin/index.html"  # Custom health check path for admin
     port                = "traffic-port"
     protocol            = "HTTP"
     timeout             = 5
@@ -76,8 +44,8 @@ resource "aws_lb_target_group" "register" {
   vpc_id   = var.vpc_id
 
   health_check {
-    interval            = 30
-    path                = "/register/health"  # Custom health check path for register
+    interval            = 6
+    path                = "/register/index.html"  # Custom health check path for register
     port                = "traffic-port"
     protocol            = "HTTP"
     timeout             = 5
@@ -98,8 +66,8 @@ resource "aws_lb_target_group" "main" {
   vpc_id   = var.vpc_id
 
   health_check {
-    interval            = 30
-    path                = "/health"  # Custom health check path for main app
+    interval            = 6
+    path                = "/index.html"  # Custom health check path for main app
     port                = "traffic-port"
     protocol            = "HTTP"
     timeout             = 5
