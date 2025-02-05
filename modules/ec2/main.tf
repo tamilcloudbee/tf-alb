@@ -1,41 +1,6 @@
 
 
-# Data block to fetch the latest Ubuntu AMI ID in the region
-/*
-
-data "aws_ami" "latest_ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"]  # Ubuntu official owner ID
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-*arm*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
-
-
-data "aws_ami" "latest_ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"]  # Ubuntu official owner ID
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-*arm64*"]  # Match ARM-based Ubuntu AMIs
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-*/
-
+# Data block to fetch the latest Ubuntu AMI ID in the 
 data "aws_ami" "latest_ubuntu" {
   most_recent = true
   owners      = ["099720109477"]  # Ubuntu official owner ID

@@ -8,4 +8,4 @@ private_cidr_2 = "172.16.4.0/24"
 
 resource_prefix = "Demo-ALB"
 
-key_name = "test-linux"
+key_name = "linux-alb"
